@@ -224,8 +224,10 @@ public class Frm_Vista_Usuario extends javax.swing.JFrame {
 
     private void btnNuevoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoUsuarioActionPerformed
         // REALIZAMOS  PARA EL BOTON NUEVO USUARIO
-        Frm_RegistrarUsuario_viwUsuario frvu = new Frm_RegistrarUsuario_viwUsuario();
-        frvu.setVisible(true);
+        //Frm_RegistrarUsuario_viwUsuario frvu = new Frm_RegistrarUsuario_viwUsuario();
+        //frvu.setVisible(true);
+        Frm_RegistrarUsuario frm_registroUsuario = new Frm_RegistrarUsuario();
+        frm_registroUsuario.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_btnNuevoUsuarioActionPerformed
 
