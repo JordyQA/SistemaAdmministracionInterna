@@ -18,8 +18,8 @@ public class Ventas_controlador extends Conexion implements interface_ventas_dao
     public boolean crear(Ventas vt) {
         getConexion();
 
-        String sql = "INSERT INTO venta(IdVenta, IdEmpleado, IdCliente, IdProducto, FechaPedido, FechaEntrega, TipoDeEntrega, Cantidad, TipoPago, Total) VALUES ('" + vt.getIdventa()
-                + "','" + vt.getIdempleado() + "','" + vt.getIdcliente() + "','" + vt.getIdproducto()
+        String sql = "INSERT INTO venta(IdVenta, IdEmpleado, dniCliente, IdProducto, FechaPedido, FechaEntrega, TipoDeEntrega, Cantidad, TipoPago, Total) VALUES ('" + vt.getIdventa()
+                + "','" + vt.getIdempleado() + "','" + vt.getDniCliente() + "','" + vt.getIdproducto()
                 + "','" + vt.getFechapedido() + "','" + vt.getFechaentrega() + "','" + vt.getTipoentrega()
                 + "','" + vt.getCantidad() + "','" + vt.getTipopago() + "','" + vt.getTotal()
                 + "')";
@@ -46,7 +46,7 @@ public class Ventas_controlador extends Conexion implements interface_ventas_dao
         getConexion();
 
         String sql = "UPDATE venta SET IdEmpleado='" + vt.getIdempleado()
-                + "', IdCliente='" + vt.getIdcliente() + "', IdProducto='" + vt.getIdproducto() + "', FechaPedido='"
+                + "', dniCliente='" + vt.getDniCliente() + "', IdProducto='" + vt.getIdproducto() + "', FechaPedido='"
                 + vt.getFechapedido() + "', FechaEntrega='" + vt.getFechaentrega() + "', TipoDeEntrega='" + vt.getTipoentrega()
                 + "', Cantidad='" + vt.getCantidad() + "', TipoPago='" + vt.getTipopago() + "', Total='" + vt.getTotal()
                 + "' where IdVenta ='" + vt.getIdventa() + "'";
@@ -103,7 +103,7 @@ public class Ventas_controlador extends Conexion implements interface_ventas_dao
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
 
-                Ventas vta = new Ventas(rs.getString("IdVenta"), rs.getString("IdEmpleado"), rs.getString("IdCliente"),
+                Ventas vta = new Ventas(rs.getString("IdVenta"), rs.getString("IdEmpleado"), rs.getString("dniCliente"),
                         rs.getString("IdProducto"), rs.getString("FechaPedido"), rs.getString("FechaEntrega"),
                         rs.getString("TipodeEntrega"), rs.getInt("Cantidad"), rs.getString("TipoPago"), rs.getDouble("Total"));
                 venta.add(vta);

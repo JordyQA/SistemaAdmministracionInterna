@@ -5,27 +5,35 @@
  */
 package Vista;
 
+import Conexion.Conexion;
 import Modelo.Ventas;
 import Controlador.Ventas_controlador;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class Frm_Ventas extends javax.swing.JFrame {
 
     Ventas_controlador vD = new Ventas_controlador();
+    DefaultTableModel modelo;
+    String[] cabecera = {"CODIGO", "EMPLEADO", "PRODUCTO", "CLIENTE", "NOMBRE CLIENTE", "DIRECCION", "TELEFONO", "FECHA PEDIDO", "FECHA ENTREGA", "TIPO ENTREGA", "CANTIDAD", "TIPO PAGO", "TOTAL"};
+    String[] datos = new String[13];
 
     public Frm_Ventas() {
         initComponents();
-        muestra();
+//        muestra();
+        cargarTabla();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setTitle("VENTAS");
     }
 
-    void limpiar(){
+    void limpiar() {
         txtidventa.setText("");
         txtidempleado.setText("");
-        txtidcliente.setText("");
+        txtDniCliente.setText("");
         txtidproducto.setText("");
         txtfechapedido.setText("");
         txtfechaentrega.setText("");
@@ -34,8 +42,41 @@ public class Frm_Ventas extends javax.swing.JFrame {
         cbxtipopago.setSelectedIndex(0);
         txttotal.setText("");
     }
-    
-    void muestra() {
+
+    public void cargarTabla() {
+        String sql = "";
+        Conexion cn = new Conexion();
+        Connection c = cn.getConexion();
+        modelo = new DefaultTableModel(null, cabecera);
+        sql = "SELECT v.IdVenta,v.IdEmpleado,v.IdProducto,v.dniCliente,c.NombreCliente,c.DireccionCliente,c.TelefonoCliente,v.FechaPedido,v.FechaEntrega,v.TipoDeEntrega,v.Cantidad,v.TipoPago,v.Total from venta as v INNER JOIN cliente as c on v.dniCliente=c.DniCliente;";
+        try {
+            Statement st = c.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                datos[0] = rs.getString("IdVenta");
+                datos[1] = rs.getString("IdEmpleado");
+                datos[2] = rs.getString("IdProducto");
+                datos[3] = rs.getString("dniCliente");
+                datos[4] = rs.getString("NombreCliente");
+                datos[5] = rs.getString("DireccionCliente");
+                datos[6] = rs.getString("TelefonoCliente");
+                datos[7] = rs.getString("FechaPedido");
+                datos[8] = rs.getString("FechaEntrega");
+                datos[9] = rs.getString("TipoDeEntrega");
+                datos[10] = rs.getString("Cantidad");
+                datos[11] = rs.getString("TipoPago");
+                datos[12] = rs.getString("Total");
+
+                modelo.addRow(datos);
+            }
+            tblVentas.setModel(modelo);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error " + e);
+        }
+    }
+
+    /*void muestra() {
 
         DefaultTableModel dt = (DefaultTableModel) tblVentas.getModel();
         dt.setRowCount(0);
@@ -44,8 +85,7 @@ public class Frm_Ventas extends javax.swing.JFrame {
                 t.getFechaentrega(), t.getTipoentrega(), t.getCantidad(), t.getTipopago(), t.getTotal()};
             dt.addRow(v);
         }
-    }
-
+    }*/
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -68,7 +108,7 @@ public class Frm_Ventas extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txtidcliente = new javax.swing.JTextField();
+        txtDniCliente = new javax.swing.JTextField();
         txtidempleado = new javax.swing.JTextField();
         txtidproducto = new javax.swing.JTextField();
         txtidventa = new javax.swing.JTextField();
@@ -227,7 +267,7 @@ public class Frm_Ventas extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(77, 77, 77)
                 .addComponent(jLabel2)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addContainerGap(91, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,7 +278,7 @@ public class Frm_Ventas extends javax.swing.JFrame {
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtidcliente)
+                    .addComponent(txtDniCliente)
                     .addComponent(txtidempleado)
                     .addComponent(txtidproducto)
                     .addComponent(txtidventa, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE))
@@ -251,7 +291,7 @@ public class Frm_Ventas extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtidcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDniCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -367,9 +407,9 @@ public class Frm_Ventas extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(57, 57, 57)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -398,7 +438,6 @@ public class Frm_Ventas extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(9, 9, 9)))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -409,7 +448,7 @@ public class Frm_Ventas extends javax.swing.JFrame {
                     .addComponent(btnactualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnregresar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -432,12 +471,12 @@ public class Frm_Ventas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
-        String idventa, idempleado, idcliente, idproducto, fechapedido, fechaentrega, tipoentrega, tipopago;
+        String idventa, idempleado, dniCliente, idproducto, fechapedido, fechaentrega, tipoentrega, tipopago;
         int cantidad;
         double total;
         idventa = txtidventa.getText();
         idempleado = txtidempleado.getText();
-        idcliente = txtidcliente.getText();
+        dniCliente = txtDniCliente.getText();
         idproducto = txtidproducto.getText();
         fechapedido = txtfechapedido.getText();
         fechaentrega = txtfechaentrega.getText();
@@ -445,12 +484,17 @@ public class Frm_Ventas extends javax.swing.JFrame {
         cantidad = Integer.parseInt(txtcantidad.getText());
         tipopago = cbxtipopago.getSelectedItem().toString();
         total = Double.parseDouble(txttotal.getText());
-        Ventas v = new Ventas(idventa, idempleado, idcliente, idproducto, fechapedido, fechaentrega,
+        Ventas v = new Ventas(idventa, idempleado, dniCliente, idproducto, fechapedido, fechaentrega,
                 tipoentrega, cantidad, tipopago, total);
-        vD.crear(v);
-        JOptionPane.showMessageDialog(null, "SE HA GUARDADO CORRECTAMENTE");
-        muestra();
-        limpiar();
+        if (vD.crear(v)) {
+
+            JOptionPane.showMessageDialog(null, "SE HA GUARDADO CORRECTAMENTE");
+            //        muestra();
+            cargarTabla();
+            limpiar();
+        } else {
+            JOptionPane.showMessageDialog(null, "Error: registro no pudo ser insertado");
+        }
     }//GEN-LAST:event_btnguardarActionPerformed
 
     private void btnlimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlimpiarActionPerformed
@@ -463,7 +507,7 @@ public class Frm_Ventas extends javax.swing.JFrame {
         double total;
         idventa = txtidventa.getText();
         idempleado = txtidempleado.getText();
-        idcliente = txtidcliente.getText();
+        idcliente = txtDniCliente.getText();
         idproducto = txtidproducto.getText();
         fechapedido = txtfechapedido.getText();
         fechaentrega = txtfechaentrega.getText();
@@ -473,10 +517,17 @@ public class Frm_Ventas extends javax.swing.JFrame {
         total = Double.parseDouble(txttotal.getText());
         Ventas v = new Ventas(idventa, idempleado, idcliente, idproducto, fechapedido, fechaentrega,
                 tipoentrega, cantidad, tipopago, total);
-        vD.actualizar(v);
-        JOptionPane.showMessageDialog(null, "SE HA MODIFICADO CORRECTAMENTE");
-        muestra();
-        limpiar();
+
+        if (vD.actualizar(v)) {
+
+            JOptionPane.showMessageDialog(null, "SE HA MODIFICADO CORRECTAMENTE");
+            //        muestra();
+            cargarTabla();
+            limpiar();
+        } else {
+            JOptionPane.showMessageDialog(null, "Error: NO SE HA PODIDO MODIFICAR.");
+        }
+
     }//GEN-LAST:event_btnactualizarActionPerformed
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
@@ -487,7 +538,9 @@ public class Frm_Ventas extends javax.swing.JFrame {
         } else {
             vD.borrar(v.getIdventa());
             JOptionPane.showMessageDialog(null, "SE HA ELIMINADO CORRECTAMENTE");
-            muestra();
+            //            muestra();
+            cargarTabla();
+            limpiar();
         }
     }//GEN-LAST:event_btneliminarActionPerformed
 
@@ -500,12 +553,13 @@ public class Frm_Ventas extends javax.swing.JFrame {
     private void tblVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVentasMouseClicked
         txtidventa.setText(tblVentas.getValueAt(tblVentas.getSelectedRow(), 0).toString());
         txtidempleado.setText(tblVentas.getValueAt(tblVentas.getSelectedRow(), 1).toString());
-        txtidcliente.setText(tblVentas.getValueAt(tblVentas.getSelectedRow(), 2).toString());
-        txtidproducto.setText(tblVentas.getValueAt(tblVentas.getSelectedRow(), 3).toString());
-        txtfechapedido.setText(tblVentas.getValueAt(tblVentas.getSelectedRow(), 4).toString());
-        txtfechaentrega.setText(tblVentas.getValueAt(tblVentas.getSelectedRow(), 5).toString());
-        txtcantidad.setText(tblVentas.getValueAt(tblVentas.getSelectedRow(), 7).toString());
-        txttotal.setText(tblVentas.getValueAt(tblVentas.getSelectedRow(), 9).toString());
+        txtidproducto.setText(tblVentas.getValueAt(tblVentas.getSelectedRow(), 2).toString());
+        txtDniCliente.setText(tblVentas.getValueAt(tblVentas.getSelectedRow(), 3).toString());
+
+        txtfechapedido.setText(tblVentas.getValueAt(tblVentas.getSelectedRow(), 7).toString());
+        txtfechaentrega.setText(tblVentas.getValueAt(tblVentas.getSelectedRow(), 8).toString());
+        txtcantidad.setText(tblVentas.getValueAt(tblVentas.getSelectedRow(), 10).toString());
+        txttotal.setText(tblVentas.getValueAt(tblVentas.getSelectedRow(), 12).toString());
 
     }//GEN-LAST:event_tblVentasMouseClicked
 
@@ -578,10 +632,10 @@ public class Frm_Ventas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblVentas;
+    private javax.swing.JTextField txtDniCliente;
     private javax.swing.JTextField txtcantidad;
     private javax.swing.JTextField txtfechaentrega;
     private javax.swing.JTextField txtfechapedido;
-    private javax.swing.JTextField txtidcliente;
     private javax.swing.JTextField txtidempleado;
     private javax.swing.JTextField txtidproducto;
     private javax.swing.JTextField txtidventa;

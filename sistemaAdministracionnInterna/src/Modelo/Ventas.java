@@ -8,7 +8,7 @@ public class Ventas {
 
     private String idventa;
     private String idempleado;
-    private String idcliente;
+    private String dniCliente;
     private String idproducto;
     private String fechapedido;
     private String fechaentrega;
@@ -17,10 +17,14 @@ public class Ventas {
     private String tipopago;
     private double total;
 
-    public Ventas(String idventa, String idempleado, String idcliente, String idproducto, String fechapedido, String fechaentrega, String tipoentrega, int cantidad, String tipopago, double total) {
+    public Ventas() {
+
+    }
+
+    public Ventas(String idventa, String idempleado, String dniCliente, String idproducto, String fechapedido, String fechaentrega, String tipoentrega, int cantidad, String tipopago, double total) {
         this.idventa = idventa;
         this.idempleado = idempleado;
-        this.idcliente = idcliente;
+        this.dniCliente = dniCliente;
         this.idproducto = idproducto;
         this.fechapedido = fechapedido;
         this.fechaentrega = fechaentrega;
@@ -46,12 +50,12 @@ public class Ventas {
         this.idempleado = idempleado;
     }
 
-    public String getIdcliente() {
-        return idcliente;
+    public String getDniCliente() {
+        return dniCliente;
     }
 
-    public void setIdcliente(String idcliente) {
-        this.idcliente = idcliente;
+    public void setDniCliente(String dniCliente) {
+        this.dniCliente = dniCliente;
     }
 
     public String getIdproducto() {
