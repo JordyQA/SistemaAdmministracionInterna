@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-09-2023 a las 08:27:38
+-- Tiempo de generación: 14-09-2023 a las 00:11:30
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -178,7 +178,7 @@ INSERT INTO `usuarios` (`codigo`, `nombre`, `apellidos`, `correo`, `telefono`, `
 CREATE TABLE `venta` (
   `IdVenta` varchar(10) NOT NULL,
   `IdEmpleado` varchar(10) NOT NULL,
-  `IdCliente` varchar(10) NOT NULL,
+  `dniCliente` varchar(15) NOT NULL,
   `IdProducto` varchar(10) NOT NULL,
   `FechaPedido` date NOT NULL,
   `FechaEntrega` date NOT NULL,
@@ -192,17 +192,18 @@ CREATE TABLE `venta` (
 -- Volcado de datos para la tabla `venta`
 --
 
-INSERT INTO `venta` (`IdVenta`, `IdEmpleado`, `IdCliente`, `IdProducto`, `FechaPedido`, `FechaEntrega`, `TipoDeEntrega`, `Cantidad`, `TipoPago`, `Total`) VALUES
-('VEN001', 'EMP001', 'CLI001', 'PRO001', '2022-01-03', '2022-01-07', 'Envío a domicilio', 1, 'Pago con tarjeta', 6900.00),
-('VEN002', 'EMP002', 'CLI002', 'PRO002', '2022-01-08', '2022-01-12', 'Contra entrega', 1, 'Efectivo', 2300.00),
-('VEN003', 'EMP003', 'CLI003', 'PRO003', '2022-01-15', '2022-01-22', 'Recoger en local', 1, 'Efectivo', 6900.00),
-('VEN004', 'EMP004', 'CLI004', 'PRO004', '2022-01-25', '2022-01-31', 'Envío a domicilio', 1, 'Efectivo', 2390.00),
-('VEN005', 'EMP005', 'CLI005', 'PRO005', '2022-02-10', '2022-02-18', 'Recoger en local', 1, 'Efectivo', 3200.00),
-('VEN006', 'EMP006', 'CLI006', 'PRO006', '2022-03-25', '2022-03-31', 'Recoger en local', 1, 'Efectivo', 1850.00),
-('VEN007', 'EMP007', 'CLI007', 'PRO007', '2022-04-14', '2022-04-23', 'Instalación en domicilio', 1, 'Efectivo', 750.00),
-('VEN008', 'EMP008', 'CLI008', 'PRO008', '2022-05-11', '2022-05-18', 'Envío a domicilio', 1, 'Efectivo', 3300.00),
-('VEN009', 'EMP009', 'CLI009', 'PRO009', '2022-07-22', '2022-07-28', 'Contra entrega', 1, 'Efectivo', 1295.00),
-('VEN010', 'EMP010', 'CLI010', 'PRO010', '2022-10-16', '2022-10-23', 'Contra entrega', 1, 'Efectivo', 2900.00);
+INSERT INTO `venta` (`IdVenta`, `IdEmpleado`, `dniCliente`, `IdProducto`, `FechaPedido`, `FechaEntrega`, `TipoDeEntrega`, `Cantidad`, `TipoPago`, `Total`) VALUES
+('VEN001', 'EMP001', '41102231', 'PRO001', '2022-01-03', '2022-01-07', 'Envío a domicilio', 1, 'Pago con tarjeta', 6900.00),
+('VEN002', 'EMP002', '36652147', 'PRO002', '2022-01-08', '2022-01-12', 'A domicilio', 3, 'Efectivo', 2300.00),
+('VEN003', 'EMP003', '76030487', 'PRO003', '2022-01-15', '2022-01-22', 'Recoger en local', 1, 'Efectivo', 6900.00),
+('VEN004', 'EMP004', '15973548', 'PRO004', '2022-01-25', '2022-01-31', 'Envío a domicilio', 1, 'Efectivo', 2390.00),
+('VEN005', 'EMP005', '02021159', 'PRO005', '2022-02-10', '2022-02-18', 'Recoger en local', 1, 'Efectivo', 3200.00),
+('VEN006', 'EMP006', '95148263', 'PRO006', '2022-03-25', '2022-03-31', 'Recoger en local', 1, 'Efectivo', 1850.00),
+('VEN008', 'EMP008', '02021159', 'PRO008', '2022-05-11', '2022-05-18', 'Envío a domicilio', 1, 'Efectivo', 3300.00),
+('VEN009', 'EMP009', '76030487', 'PRO009', '2022-07-22', '2022-07-28', 'Contra entrega', 1, 'Efectivo', 1295.00),
+('VEN010', 'EMP010', '41102231', 'PRO010', '2022-10-16', '2022-10-23', 'Contra entrega', 1, 'Efectivo', 2900.00),
+('VEN011', 'EMP008', '36652147', 'PRO008', '2022-05-11', '2022-05-18', 'Presencial', 1, 'Crédito', 3300.00),
+('VEN012', 'EMP008', '36652147', 'PRO008', '2022-05-11', '2022-05-18', 'A domicilio', 1, 'Efectivo', 3300.00);
 
 --
 -- Índices para tablas volcadas
@@ -245,7 +246,7 @@ ALTER TABLE `usuarios`
 ALTER TABLE `venta`
   ADD PRIMARY KEY (`IdVenta`),
   ADD KEY `IdEmpleado` (`IdEmpleado`),
-  ADD KEY `IdCliente` (`IdCliente`),
+  ADD KEY `IdCliente` (`dniCliente`),
   ADD KEY `IdProducto` (`IdProducto`);
 
 --
@@ -263,7 +264,6 @@ ALTER TABLE `producto`
 --
 ALTER TABLE `venta`
   ADD CONSTRAINT `venta_ibfk_1` FOREIGN KEY (`IdEmpleado`) REFERENCES `empleado` (`IdEmpleado`),
-  ADD CONSTRAINT `venta_ibfk_2` FOREIGN KEY (`IdCliente`) REFERENCES `cliente` (`IdCliente`),
   ADD CONSTRAINT `venta_ibfk_3` FOREIGN KEY (`IdProducto`) REFERENCES `producto` (`IdProducto`);
 COMMIT;
 
