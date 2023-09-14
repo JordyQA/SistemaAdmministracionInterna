@@ -12,6 +12,7 @@ import Modelo.Usuario;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -35,7 +36,7 @@ public class Frm_RegistrarUsuario extends javax.swing.JFrame {
     public Frm_RegistrarUsuario() {
         initComponents();
         cargarTabla();
-
+//        setIconImage(new ImageIcon(getClass().getResource("/img/ico-inventario-1.png")).getImage());
         setVisible(true);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
@@ -375,7 +376,7 @@ public class Frm_RegistrarUsuario extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         //REALIZAMOS PARA EL BOTON REGRESAR
-        Frm_Vista_Usuario frmVistaUsuarios  = new Frm_Vista_Usuario();
+        Frm_Vista_Usuario frmVistaUsuarios = new Frm_Vista_Usuario();
         frmVistaUsuarios.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_btnRegresarActionPerformed

@@ -5,6 +5,8 @@
  */
 package Vista;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author jordy
@@ -16,6 +18,7 @@ public class Fin extends javax.swing.JFrame {
      */
     public Fin() {
         initComponents();
+//        setIconImage(new ImageIcon(getClass().getResource("/img/ico-inventario-1.png")).getImage());
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setTitle("GRACIAS POR SU VISITA");

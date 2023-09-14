@@ -42,6 +42,7 @@ public final class Frm_StockMateriales extends javax.swing.JFrame {
         initComponents();
         cargarTabla();
         inabilitar();
+//        setIconImage(new ImageIcon(getClass().getResource("/img/ico-inventario-1.png")).getImage());
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setTitle("STOCK DE MATERIALES");
@@ -106,7 +107,7 @@ public final class Frm_StockMateriales extends javax.swing.JFrame {
         btnLimpiar.setEnabled(true);
         btnActualizar.setEnabled(true);
         btnGuardar.setEnabled(true);
-        
+
         btnNuevo.setEnabled(false);
     }
 

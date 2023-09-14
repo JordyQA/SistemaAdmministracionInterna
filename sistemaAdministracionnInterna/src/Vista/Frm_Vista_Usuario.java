@@ -10,6 +10,7 @@ import Conexion.conexionSQL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -23,46 +24,46 @@ public class Frm_Vista_Usuario extends javax.swing.JFrame {
      * Creates new form _Vista_Usuario
      */
     
-    DefaultTableModel modelo;
-    String[] cabecera = {"CODIGO", "NOMBRE","APELLIDO","USUARIO","TELEFONO","PASSWORD"};
-    String[] datos = new String[6];
     
+    DefaultTableModel modelo;
+    String[] cabecera = {"CODIGO", "NOMBRE", "APELLIDO", "USUARIO", "TELEFONO", "PASSWORD"};
+    String[] datos = new String[6];
+
     public Frm_Vista_Usuario() {
         initComponents();
         cargarTabla();
-        
-        
+//        setIconImage(new ImageIcon(getClass().getResource("/img/ico-inventario-1.png")).getImage());
         setVisible(true);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setTitle("VENTANA DE LOS USUARIOS");
     }
 
-    void cargarTabla(){
+    void cargarTabla() {
         String sql = "";
         Conexion cn = new Conexion();
         Connection c = cn.getConexion();
-        modelo = new DefaultTableModel(null,cabecera);
+        modelo = new DefaultTableModel(null, cabecera);
         sql = "SELECT * FROM usuarios";
-        try{
+        try {
             Statement st = c.createStatement();
             ResultSet rs = st.executeQuery(sql);
-            while (rs.next()){
+            while (rs.next()) {
                 datos[0] = rs.getString("codigo");
                 datos[1] = rs.getString("nombre");
                 datos[2] = rs.getString("apellidos");
                 datos[3] = rs.getString("correo");
                 datos[4] = rs.getString("telefono");
                 datos[5] = rs.getString("password");
-                
+
                 modelo.addRow(datos);
             }
             tblUsuarios.setModel(modelo);
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "ERROR: "+e);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e);
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

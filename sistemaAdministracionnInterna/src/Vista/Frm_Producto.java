@@ -6,6 +6,7 @@ package Vista;
 
 import Modelo.Producto;
 import Controlador.Producto_controlador;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 

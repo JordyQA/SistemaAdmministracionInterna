@@ -5,6 +5,8 @@
  */
 package Vista;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author jordy
@@ -18,7 +20,7 @@ public class Frm_Principal extends javax.swing.JFrame {
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        this.setTitle("VENTA PRINCIPAL");
+
     }
 
     /**
@@ -61,6 +63,11 @@ public class Frm_Principal extends javax.swing.JFrame {
         btnClientes.setForeground(new java.awt.Color(255, 255, 255));
         btnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Clientes.png"))); // NOI18N
         btnClientes.setText("CLIENTES");
+        btnClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnClientesMouseClicked(evt);
+            }
+        });
         btnClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClientesActionPerformed(evt);
@@ -183,48 +190,52 @@ public class Frm_Principal extends javax.swing.JFrame {
         // REALIZAMOS PARA EL BOTON USUARIOS QUE TENDRA
         Frm_Vista_Usuario fvu = new Frm_Vista_Usuario();
         fvu.setVisible(true);
-        setVisible(false);
+        this.setVisible(false);
     }//GEN-LAST:event_btnUsuariosActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         Fin fin = new Fin();
         fin.setVisible(true);
-        setVisible(false);
+        this.setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlmacenActionPerformed
         // Pasamos del principal a la ventana externa
         Frm_StockMateriales sm = new Frm_StockMateriales();
         sm.setVisible(true);
-        setVisible(false);
+        this.setVisible(false);
     }//GEN-LAST:event_btnAlmacenActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
-        // pasamos a los clientes
-        Frm_Cliente fc = new Frm_Cliente();
+        // Pasamos del principal a la ventana clientes
+        Frm_Clientes fc = new Frm_Clientes();
         fc.setVisible(true);
-        setVisible(false);
+        this.setVisible(false);
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadosActionPerformed
         // pasamos la vista empleados
         Frm_Empleado fe = new Frm_Empleado();
         fe.setVisible(true);
-        setVisible(false);
+        this.setVisible(false);
     }//GEN-LAST:event_btnEmpleadosActionPerformed
 
     private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
         // PASAMOS LA VISTA PRODUCTOS
         Frm_Producto fp = new Frm_Producto();
         fp.setVisible(true);
-        setVisible(false);
+        this.setVisible(false);
     }//GEN-LAST:event_btnProductosActionPerformed
 
     private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
         Frm_Ventas fv = new Frm_Ventas();
         fv.setVisible(true);
-        setVisible(false);
+        this.setVisible(false);
     }//GEN-LAST:event_btnVentasActionPerformed
+
+    private void btnClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClientesMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnClientesMouseClicked
 
     /**
      * @param args the command line arguments

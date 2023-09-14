@@ -6,6 +6,7 @@ package Vista;
 
 import Modelo.Empleado;
 import Controlador.Empleado_controlador;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -29,8 +30,8 @@ public class Frm_Empleado extends javax.swing.JFrame {
             dt.addRow(v);
         }
     }
-    
-    void limpiar(){
+
+    void limpiar() {
         txtIdEmpleado.setText("");
         txtNombreEmpleado.setText("");
         txtDniEmpleado.setText("");
